@@ -25,7 +25,8 @@ export default function AvatarForm() {
         const formData : any = new FormData();
         formData.append('avatar', {
             name: file.assets[0].fileName,
-            type: 'image/jpeg',
+            size: file.assets[0].filesize,
+            type: file.assets[0].mimeType,
             uri: file.assets[0].uri
           });
         dispatch(updateAvatar({ id: user.id, name : user.name, phone : user.phone, avatar: formData }));

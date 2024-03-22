@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Button, Image, TouchableOpacity, TextInput } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity, TextInput, Alert } from "react-native";
 import { useDispatch } from 'react-redux'
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -11,6 +11,22 @@ const logoImg = require("../../assets/usertie.png")
 
 export default function TodoItem({ todo }: { todo: { id: any, name: string, phone: string, avatar: any } }) {
     const navigation: any = useNavigation();
+
+    const submit = () => {
+        Alert.alert(
+          'Konfirmasi untuk hapus', 'Apakah anda yakin menghapus data ini?',
+          [
+            {
+              text: 'Iya',
+              onPress: () => dispatch(removeUser(todo.id))
+            },
+            {
+              text: 'Tidak',
+              onPress: () => navigation.navigate("Home")
+            }
+          ]
+        );
+      };
     
     const [userInput, setUserInput] = useState({
         name: todo.name, phone: todo.phone
@@ -75,7 +91,7 @@ export default function TodoItem({ todo }: { todo: { id: any, name: string, phon
                         <TouchableOpacity onPress={() => (setIsEdit(true))}>
                             <FontAwesomeIcon icon={faPenToSquare} style={styles.logoEdit} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => dispatch(removeUser(todo.id))}>
+                        <TouchableOpacity onPress={submit}>
                             <FontAwesomeIcon icon={faTrashCan} style={styles.logoDelete} />
                         </TouchableOpacity>
                     </View>

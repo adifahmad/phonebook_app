@@ -15,8 +15,6 @@ export const loadUser = ({keyword, sortBy, sortMode, page}) => dispatch => axios
     dispatch(loadUserFailed())
 })
 
-
-
 export const updateUserDraw = (allItem) => ({
     type: 'UPDATE_USER',
     allItem

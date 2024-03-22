@@ -1,19 +1,19 @@
-import { View, StyleSheet, TouchableOpacity, TextInput} from "react-native";
+import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faArrowDownAZ, faArrowUpZA, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
 
-export default function SearchBar({setKeyword, setPage, setSortBy, setSortMode}){
+export default function SearchBar({ setKeyword, setPage, setSortBy, setSortMode }) {
     const navigation: any = useNavigation();
     const [isBoolean, setIsBoolean] = useState(true)
 
-    const onSearch = (e : any) => {
+    const onSearch = (e: any) => {
         setKeyword(e)
         setPage(1)
     }
-    
+
     const onSortAsc = () => {
         setIsBoolean(prevState => !prevState)
         setSortBy('name')
@@ -27,42 +27,42 @@ export default function SearchBar({setKeyword, setPage, setSortBy, setSortMode})
         setSortMode('desc')
         setPage(1)
     }
-    
-    return(
+
+    return (
         <View style={styles.searchBar}>
             {isBoolean ? <TouchableOpacity
-          style={styles.buttonSort}
-          activeOpacity={0.5} onPress={onSortAsc}><FontAwesomeIcon icon={faArrowUpZA} size={25} style={styles.imgIcon} /></TouchableOpacity> : <TouchableOpacity
-          style={styles.buttonSort}
-          activeOpacity={0.5} onPress={onSortDesc}><FontAwesomeIcon icon={faArrowDownAZ} size={25} style={styles.imgIcon} /></TouchableOpacity>}
+                style={styles.buttonSort}
+                activeOpacity={0.5} onPress={onSortAsc}><FontAwesomeIcon icon={faArrowUpZA} size={25} style={styles.imgIcon} /></TouchableOpacity> : <TouchableOpacity
+                    style={styles.buttonSort}
+                    activeOpacity={0.5} onPress={onSortDesc}><FontAwesomeIcon icon={faArrowDownAZ} size={25} style={styles.imgIcon} /></TouchableOpacity>}
             <View style={styles.searchSection}>
-            <FontAwesomeIcon style={styles.searchIcon}icon={faSearch}/>
-            <TextInput style={styles.form} onChangeText={e => onSearch(e)}></TextInput>
+                <FontAwesomeIcon style={styles.searchIcon} icon={faSearch} />
+                <TextInput style={styles.form} onChangeText={e => onSearch(e)}></TextInput>
             </View>
             <TouchableOpacity
-          style={styles.buttonAdd}
-          activeOpacity={0.5} onPress={() =>
-            navigation.navigate("Add Form")
-          }><FontAwesomeIcon icon={faUserPlus} size={25} style={styles.imgIcon}/></TouchableOpacity>
+                style={styles.buttonAdd}
+                activeOpacity={0.5} onPress={() =>
+                    navigation.navigate("Add Form")
+                }><FontAwesomeIcon icon={faUserPlus} size={25} style={styles.imgIcon} /></TouchableOpacity>
         </View>
     )
 }
 
 
 const styles = StyleSheet.create({
-    imageSearch:{
-        width:18,
-        height:18
+    imageSearch: {
+        width: 18,
+        height: 18
     },
-    imgIcon:{
+    imgIcon: {
         marginTop: 10
     },
-    image:{
-        marginTop:8,
+    image: {
+        marginTop: 8,
         width: 25,
         height: 25
     },
-    buttonSort:{
+    buttonSort: {
         backgroundColor: '#B8860B',
         marginRight: 7,
         borderStyle: 'solid',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
     },
-    buttonAdd:{
+    buttonAdd: {
         backgroundColor: '#B8860B',
         marginLeft: 7,
         borderStyle: 'solid',
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
         paddingLeft: 0,
         color: '#424242',
         fontSize: 15
-      },
-      searchSection: {
+    },
+    searchSection: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',

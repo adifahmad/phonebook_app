@@ -63,7 +63,7 @@ export default function AvatarForm() {
                     <Text style={styles.textAvatar}>Pilih Avatar</Text>
                     <View>
                         {avatar && (<Image style={styles.imgAvatar} source={{
-                            uri: `http://192.168.0.113:3001/images/${user.avatar ? user.avatar : 'usertie.png'}`
+                            uri: `http://192.168.1.42:3001/images/${user.avatar ? user.avatar : 'usertie.png'}`
                         }} />)}
                         {file?.assets && (
                             <Image style={styles.imgAvatar} source={{ uri: file?.assets[0].uri }} />

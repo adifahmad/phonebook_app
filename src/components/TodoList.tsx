@@ -8,8 +8,8 @@ import SearchBar from "./SearchBar";
 export default function TodoList() {
 
   const todos = useSelector((state: any) => state.users)
-  const [sortMode, setSortMode] = useState('desc')
-  const [sortBy, setSortBy] = useState('id')
+  const [sortMode, setSortMode] = useState('asc')
+  const [sortBy, setSortBy] = useState('name')
   const [keyword, setKeyword] = useState('')
   const [page, setPage] = useState(1)
   const dispatch: any = useDispatch()

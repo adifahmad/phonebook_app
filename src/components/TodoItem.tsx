@@ -49,7 +49,7 @@ export default function TodoItem({ todo }: { todo: { id: any, name: string, phon
                         }>
                         <Image
                             style={styles.imageAvatar}
-                            source={todo.avatar == null ? logoImg : {uri :`http://192.168.0.113:3001/images/${todo.avatar}`}}
+                            source={todo.avatar == null ? logoImg : {uri :`http://192.168.1.42:3001/images/${todo.avatar}`}}
                         ></Image>
                     </TouchableOpacity>
                 </View>
@@ -61,7 +61,6 @@ export default function TodoItem({ todo }: { todo: { id: any, name: string, phon
                                     id : todo.id,
                                     name : userInput.name,
                                     phone : userInput.phone,
-                                    avatar : todo.avatar
                                 })),
                                 (setIsEdit(false)))}>
                             <FontAwesomeIcon icon={faFloppyDisk} />
@@ -80,7 +79,7 @@ export default function TodoItem({ todo }: { todo: { id: any, name: string, phon
                         }>
                         <Image
                             style={styles.imageAvatar}
-                            source={todo.avatar == null ? logoImg : {uri :`http://192.168.0.113:3001/images/${todo.avatar}`}}
+                            source={todo.avatar == null ? logoImg : {uri :`http://192.168.1.42:3001/images/${todo.avatar}`}}
                         ></Image>
                     </TouchableOpacity>
                 </View>

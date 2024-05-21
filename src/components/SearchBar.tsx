@@ -1,28 +1,24 @@
 import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faArrowDownAZ, faArrowUpZA, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownAZ, faArrowDownZA, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 
 
-export default function SearchBar({ setKeyword, setPage, setSortBy, setSortMode }) {
+export default function SearchBar({ setKeyword, setPage, setSortBy, setSortMode, sortMode }) {
     const navigation: any = useNavigation();
-    const [isBoolean, setIsBoolean] = useState(true)
 
-    const onSearch = (e: any) => {
-        setKeyword(e)
+    const onSearch = (value: any) => {
+        setKeyword(value)
         setPage(1)
     }
 
     const onSortAsc = () => {
-        setIsBoolean(prevState => !prevState)
         setSortBy('name')
         setSortMode('asc')
         setPage(1)
     }
 
     const onSortDesc = () => {
-        setIsBoolean(prevState => !prevState)
         setSortBy('name')
         setSortMode('desc')
         setPage(1)
@@ -30,20 +26,31 @@ export default function SearchBar({ setKeyword, setPage, setSortBy, setSortMode 
 
     return (
         <View style={styles.searchBar}>
-            {isBoolean ? <TouchableOpacity
-                style={styles.buttonSort}
-                activeOpacity={0.5} onPress={onSortAsc}><FontAwesomeIcon icon={faArrowUpZA} size={25} style={styles.imgIcon} /></TouchableOpacity> : <TouchableOpacity
+            {sortMode === 'asc' ?
+                <TouchableOpacity
                     style={styles.buttonSort}
-                    activeOpacity={0.5} onPress={onSortDesc}><FontAwesomeIcon icon={faArrowDownAZ} size={25} style={styles.imgIcon} /></TouchableOpacity>}
+                    activeOpacity={0.5}
+                    onPress={onSortDesc}>
+                    <FontAwesomeIcon icon={faArrowDownZA} size={25} style={styles.imgIcon} />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity
+                    style={styles.buttonSort}
+                    activeOpacity={0.5}
+                    onPress={onSortAsc}>
+                    <FontAwesomeIcon icon={faArrowDownAZ} size={25} style={styles.imgIcon} />
+                </TouchableOpacity>
+            }
             <View style={styles.searchSection}>
                 <FontAwesomeIcon style={styles.searchIcon} icon={faSearch} />
                 <TextInput style={styles.form} onChangeText={e => onSearch(e)}></TextInput>
             </View>
             <TouchableOpacity
                 style={styles.buttonAdd}
-                activeOpacity={0.5} onPress={() =>
-                    navigation.navigate("Add Form")
-                }><FontAwesomeIcon icon={faUserPlus} size={25} style={styles.imgIcon} /></TouchableOpacity>
+                activeOpacity={0.5}
+                onPress={() => navigation.navigate("Add Form")}>
+                <FontAwesomeIcon icon={faUserPlus} size={25} style={styles.imgIcon} />
+            </TouchableOpacity>
         </View>
     )
 }

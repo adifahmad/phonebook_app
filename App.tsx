@@ -22,6 +22,7 @@ const App = () => {
           <Stack.Screen
             name="Home"
             component={Home}
+            initialParams={{ pageParam: 1 }}
           />
           <Stack.Screen name="Add Form" component={AddForm} />
           <Stack.Screen name="Avatar Form" component={AvatarForm} />

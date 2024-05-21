@@ -12,6 +12,14 @@ const logoImg = require("../../assets/usertie.png")
 export default function TodoItem({ todo }: { todo: { id: any, name: string, phone: string, avatar: any } }) {
     const navigation: any = useNavigation();
 
+    const [userInput, setUserInput] = useState({
+        name: todo.name, 
+        phone: todo.phone
+    })
+    const [isEdit, setIsEdit] = useState(false)
+
+    const dispatch : any = useDispatch()
+
     const submit = () => {
         Alert.alert(
           'Konfirmasi untuk hapus', 'Apakah anda yakin menghapus data ini?',
@@ -27,18 +35,6 @@ export default function TodoItem({ todo }: { todo: { id: any, name: string, phon
           ]
         );
       };
-    
-    const [userInput, setUserInput] = useState({
-        name: todo.name, phone: todo.phone
-    })
-    
-
-    useEffect(() => {
-        setUserInput({name: todo.name, phone: todo.phone})
-    }, [todo])
-    
-    const [isEdit, setIsEdit] = useState(false)
-    const dispatch : any = useDispatch()
 
     if (isEdit) {
         return (

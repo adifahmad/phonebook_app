@@ -22,38 +22,37 @@ export default function AvatarForm() {
     const [file, setFile]: [any, any] = useState<any>(null);
 
     const upload = () => {
-        const formData : any = new FormData();
+        const formData: any = new FormData();
         formData.append('avatar', {
             name: file.assets[0].fileName,
             size: file.assets[0].filesize,
             type: file.assets[0].mimeType,
             uri: file.assets[0].uri
-          });
-        dispatch(updateAvatar({ id: user.id, name : user.name, phone : user.phone, avatar: formData }));
+        });
+        dispatch(updateAvatar({ id: user.id, avatar: formData }));
         navigation.goBack();
     };
 
     const onButtonPress = useCallback(
         async (type: 'capture' | 'library', options: any) => {
-          try {
-            let data: any;
-            if (type === 'capture') {
-              data = await ImagePicker.launchCameraAsync(options);
-            } else {
-              data = await ImagePicker.launchImageLibraryAsync(options);
-              console.log(data)
+            try {
+                let data: any;
+                if (type === 'capture') {
+                    data = await ImagePicker.launchCameraAsync(options);
+                } else {
+                    data = await ImagePicker.launchImageLibraryAsync(options);
+                }
+                if (!data?.didCancel) {
+                    setFile(data);
+                    setUpdateAvatar(false);
+                }
+            } catch (error) {
+                console.error('Error selecting image:', error); // Handle error appropriately
             }
-            if (!data?.didCancel) {
-              setFile(data);
-              setUpdateAvatar(false);
-            }
-          } catch (error) {
-            console.error('Error selecting image:', error); // Handle error appropriately
-          }
         },
         [setFile]
-      );
-      
+    );
+
 
 
     return (
@@ -69,20 +68,20 @@ export default function AvatarForm() {
                             <Image style={styles.imgAvatar} source={{ uri: file?.assets[0].uri }} />
                         )}
                         <View style={styles.viewButton}>
-                        <TouchableOpacity style={styles.buttonPhoto} onPress={() =>
-                            onButtonPress('capture', {
-                                selectionLimit: 1,
-                                mediaType: 'photo',
-                                includeBase64: false
-                            })
-                        } ><FontAwesomeIcon  style={styles.imgIcon} icon={faCamera} size={80} /><Text style={styles.textImage}>Take a Photo</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonAvatar} onPress={() =>
-                            onButtonPress('library', {
-                                selectionLimit: 1,
-                                mediaType: 'photo',
-                                includeBase64: false
-                            })
-                        } ><FontAwesomeIcon style={styles.imgIcon} icon={faImage} size={80}/><Text style={styles.textImage}>Select from Galery</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.buttonPhoto} onPress={() =>
+                                onButtonPress('capture', {
+                                    selectionLimit: 1,
+                                    mediaType: 'photo',
+                                    includeBase64: false
+                                })
+                            } ><FontAwesomeIcon style={styles.imgIcon} icon={faCamera} size={80} /><Text style={styles.textImage}>Take a Photo</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.buttonAvatar} onPress={() =>
+                                onButtonPress('library', {
+                                    selectionLimit: 1,
+                                    mediaType: 'photo',
+                                    includeBase64: false
+                                })
+                            } ><FontAwesomeIcon style={styles.imgIcon} icon={faImage} size={80} /><Text style={styles.textImage}>Select from Galery</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -99,7 +98,7 @@ export default function AvatarForm() {
 
 const styles = StyleSheet.create({
 
-    textAvatar:{
+    textAvatar: {
         fontSize: 20,
     },
 
@@ -141,9 +140,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderColor: '#000000',
         borderWidth: 1,
-        alignItems: 'center' 
+        alignItems: 'center'
     },
-    buttonAvatar:{
+    buttonAvatar: {
         marginTop: 4,
         marginLeft: 30,
         backgroundColor: '#87CEEB',
@@ -155,17 +154,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         alignItems: 'center'
     },
-    viewButton : {
+    viewButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection : 'row'
+        flexDirection: 'row'
     },
-    imgIcon:{
+    imgIcon: {
         marginTop: 10
     },
-    textImage:{
-        fontSize : 20,
-        fontWeight : 'bold',
-        textAlign : 'center'
+    textImage: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 })

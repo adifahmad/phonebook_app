@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { loadUser } from "../actions/users";
 import SearchBar from "./SearchBar";
 
-export default function TodoList() {
+export default function TodoList({ pageParam }) {
 
   const todos = useSelector((state: any) => state.users)
   const [sortMode, setSortMode] = useState('asc')
   const [sortBy, setSortBy] = useState('name')
   const [keyword, setKeyword] = useState('')
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(pageParam)
   const dispatch: any = useDispatch()
 
   const handleScroll = () => {
@@ -23,19 +23,20 @@ export default function TodoList() {
 
 
   useEffect(() => {
-    dispatch(loadUser({ keyword, sortMode, sortBy, page }))
-  }, [dispatch, keyword, sortMode, sortBy, page])
+    dispatch(loadUser({ keyword, sortMode, sortBy, page, limit: 10 }))
+  }, [dispatch, keyword, sortMode, sortBy, page]) // componentDidUpdate
 
   return (
     <View style={styles.list}>
-      <SearchBar setKeyword={setKeyword} setPage={setPage} setSortBy={setSortBy} setSortMode={setSortMode}/>
-        <FlatList
-          data={todos.phonebook}
-          renderItem={({ item }: { item: any }) => (<TodoItem todo={item} />)}
-          onEndReached={handleScroll}
-          onEndReachedThreshold={0.3}
-        />
-      </View>
+      <SearchBar setKeyword={setKeyword} setPage={setPage} setSortBy={setSortBy} setSortMode={setSortMode} sortMode={sortMode} />
+      <FlatList
+        data={todos.phonebooks}
+        renderItem={({ item }: { item: any }) => (<TodoItem todo={item} />)}
+        keyExtractor={item => item.id}
+        onEndReached={handleScroll}
+        onEndReachedThreshold={0.3}
+      />
+    </View>
   )
 }
 

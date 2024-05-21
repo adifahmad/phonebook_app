@@ -12,32 +12,32 @@ export default function Add() {
 
     const AddData = (e) => {
         dispatch(addUser(user))
-        navigation.navigate("Home")
+        navigation.navigate("Home", { pageParam: 1 })
     }
 
     return (
-            <View>
-                    <View style={styles.addForm}>
-                    <TextInput placeholder="name" style={styles.inputName} onChangeText={(e) => setUser({ ...user, name: e })}></TextInput>
-                    <TextInput placeholder="phone" style={styles.inputPhone} onChangeText={(e) => setUser({ ...user, phone: e })}></TextInput>
-                    </View>
-                    <View style={styles.buttonItem}>
-                        <TouchableOpacity style={styles.saveButton} onPress={AddData}><Text style={styles.textButton}>Save</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}><Text style={styles.textButton}>Cancel</Text></TouchableOpacity>
-                    </View>
+        <View>
+            <View style={styles.addForm}>
+                <TextInput placeholder="name" style={styles.inputName} onChangeText={(e) => setUser({ ...user, name: e })}></TextInput>
+                <TextInput placeholder="phone" style={styles.inputPhone} onChangeText={(e) => setUser({ ...user, phone: e })}></TextInput>
             </View>
+            <View style={styles.buttonItem}>
+                <TouchableOpacity style={styles.saveButton} onPress={AddData}><Text style={styles.textButton}>Save</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate("Home")}><Text style={styles.textButton}>Cancel</Text></TouchableOpacity>
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
 
-    addForm:{
-        alignItems:'center'
+    addForm: {
+        alignItems: 'center'
     },
-    buttonItem:{
+    buttonItem: {
         flexDirection: 'row'
     },
-    inputName:{
+    inputName: {
         marginTop: 30,
         padding: 7,
         backgroundColor: '#ffffff',
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRadius: 5,
         borderColor: '#000000'
-        },
-    inputPhone:{
+    },
+    inputPhone: {
         marginTop: 15,
         marginBottom: 30,
         padding: 7,
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRadius: 5,
         borderColor: '#000000'
-        },
-    saveButton:{
+    },
+    saveButton: {
         marginTop: 10,
         marginLeft: 5,
         backgroundColor: '#B8860B',
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderColor: '#000000',
         borderWidth: 1
-        },
-    cancelButton:{
+    },
+    cancelButton: {
         marginTop: 10,
         backgroundColor: '#B8860B',
         width: '45%',
@@ -78,12 +78,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         marginLeft: 25
-        },
-    textButton:{
+    },
+    textButton: {
         textAlign: 'center',
         justifyContent: 'center',
         fontWeight: 'bold',
         fontSize: 15,
         marginTop: 7
     }
-    })
+})

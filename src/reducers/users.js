@@ -1,24 +1,49 @@
-const users = (state = { phonebook: [] }, action) => {
+const initialState = {
+    page: 1,
+    limit: 10,
+    pages: 2,
+    total: 1,
+    phonebooks: []
+}
+
+const users = (state = initialState, action) => {
     switch (action.type) {
         case 'LOAD_USER_SUCCESS':
             if (action.page === 1)
-                return { phonebook: action.data.phonebook }
-            return { ...state, ...action.data, phonebook: [...state.phonebook, ...action.data.phonebook] }
+                return { ...state, phonebooks: action.data.phonebooks }
+            return { ...state, ...action.data, phonebooks: [...state.phonebooks, ...action.data.phonebooks] }
 
         case 'REMOVE_USER_SUCCESS':
-            return { ...state, phonebook: [...state.phonebook.filter(item => item.id !== action.id)] }
+            return { ...state, phonebooks: [...state.phonebooks.filter(item => item.id !== action.id)] }
 
         case 'UPDATE_USER_SUCCESS':
-              return {...state, phonebook: [...state.phonebook.map(data => data.id === action.id
-                          ? { id: action.id, name: action.name, phone: action.phone, avatar: action.avatar }
-                          : data
-                  )]
-              };           
+            return {
+                ...state, phonebooks: [
+                    ...state.phonebooks.map(item => {
+                        if (item.id === action.id) {
+                            item.name = action.name
+                            item.phone = action.phone
+                        }
+                        return item
+                    })
+                ]
+            }
+
         case 'UPDATE_AVATAR_SUCCESS':
-            return { ...state, phonebook: [...state.phonebook.filter(data => data.id !== action.id), { id: action.id, name: action.name, phone: action.phone, avatar: action.avatar._parts[0][1].name }] }
-            
+            return {
+                ...state, phonebooks: [
+                    ...state.phonebooks.map(item => {
+                        if (item.id === action.id) {
+                            item.avatar = action.avatar
+                        }
+                        return item
+                    })
+                ]
+            }
+
         case 'REMOVE_USER_FAILED':
         case 'LOAD_USER_FAILED':
+        case 'ADD_USER_FAILED':
         default:
             return state;
 
